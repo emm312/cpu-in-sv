@@ -208,6 +208,7 @@ module cpu(
         if (sync_rst) begin
             state <= ReadingOpWord;
             pc <= 0;
+            regs <= {0, 0, 0, 0, 0, 0, 0, 0};
             regs[7] <= 65535;
             gr_flag <= 0;
             eq_flag <= 0;

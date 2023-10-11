@@ -35,5 +35,3 @@ int main(int argc, char** argv, char** env) {
   delete test;
   exit(EXIT_SUCCESS);
 }
- // it wont work if you change the name of main
-// actually wait if i do fancy linker arguments it will

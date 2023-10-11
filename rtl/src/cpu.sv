@@ -159,7 +159,7 @@ module cpu(
                         regs[dst] <= ram[src1val];
                     end
                     5'b10101: begin // str
-                        ram[src1val] <= regs[dst];
+                        ram[src1val] <= src2val;
                     end
                     5'b10110: begin // rsh
                         regs[dst] <= regs[dst] >> 1;

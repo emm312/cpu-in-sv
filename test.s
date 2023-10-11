@@ -1,8 +1,3 @@
-add r1, r1, 1
-cal .label
-add r1, r1, 1
+str 5, 1
+lod r1, 5
 hlt
-
-.label
-mov r2, 3
-ret

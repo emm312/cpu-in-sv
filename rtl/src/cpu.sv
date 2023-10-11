@@ -139,21 +139,21 @@ module cpu(
                         pc <= src1val;
                     end // jmp
                     5'b10000: begin // cal
-                        ram[regs[7]] <= pc;
+                        assign ram[regs[7]] = pc;
                         regs[7] <= regs[7] - 1;
                         pc <= src1val;
                     end
                     5'b10001: begin // ret
-                        regs[7] <= regs[7] + 1;
+                        assign regs[7] = regs[7] + 1;
                         pc <= ram[regs[7]];
                     end
                     5'b10010: begin // psh
-                        ram[regs[7]] <= src1val;
+                        assign ram[regs[7]] = src1val;
                         regs[7] <= regs[7] - 1;
                     end
                     5'b10011: begin // pop
-                        regs[7] <= regs[7] + 1;
-                        regs[src1] <= ram[regs[7]];
+                        assign regs[7] = regs[7] + 1;
+                        regs[dst] <= ram[regs[7]];
                     end
                     5'b10100: begin // lod
                         regs[dst] <= ram[src1val];

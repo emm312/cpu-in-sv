@@ -7,7 +7,9 @@ typedef enum {
 } State;
 
 module cpu(
-    input clk
+    input clk,
+    input clk_en,
+    input sync_rst
 );
     State state;
     wire [7:0] word;
@@ -53,7 +55,8 @@ module cpu(
     initial begin
         state = ReadingOpWord;
     end
-    always_ff @(posedge clk) begin
+
+    always_ff @(posedge (clk & clk_en)) begin
         case (state)
             ReadingOpWord: begin
                 opcode <= word[4:0];
@@ -190,8 +193,10 @@ module cpu(
                                     3'b111: regs[dst] = ~src1val;
                                 endcase
                         
-                        end else
+                        end else begin
+                            $display("ILLEGAL INSTRUCTION: %b", opcode);
                             $finish;
+                        end
                     end
                 endcase
                 state <= ReadingOpWord;
@@ -199,6 +204,15 @@ module cpu(
         endcase
         if (state != ExecutingInstr) begin
             pc <= pc + 1;
+        end
+        if (sync_rst) begin
+            state <= ReadingOpWord;
+            pc <= 0;
+            regs[7] <= 65535;
+            gr_flag <= 0;
+            eq_flag <= 0;
+            gte_flag <= 0;
+            write_io <= 0;
         end
     end
 endmodule

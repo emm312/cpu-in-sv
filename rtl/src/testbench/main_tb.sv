@@ -3,9 +3,9 @@ module main_tb (
     input clk_en,
     input sync_rst
 );
+    wire clk_n = clk & clk_en;
     cpu the_cpu(
-        .clk(clk),
-        .clk_en(clk_en),
+        .clk(clk_n),
         .sync_rst(sync_rst)
     );
 endmodule

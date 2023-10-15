@@ -13,7 +13,7 @@ int main(int argc, char** argv, char** env) {
   VerilatedVcdC *m_trace = new VerilatedVcdC;
   test->trace(m_trace, 5);
   m_trace->open("sim.vcd");
-  test->clk = 1;
+  test->clk = 0;
 
   VerilatedContext* contextp = new VerilatedContext;
   contextp->commandArgs(argc, argv);

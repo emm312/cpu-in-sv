@@ -8,7 +8,6 @@ typedef enum {
 
 module cpu(
     input clk,
-    input clk_en,
     input sync_rst
 );
     State state;

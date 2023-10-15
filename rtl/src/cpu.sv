@@ -23,7 +23,6 @@ module cpu(
     reg [2:0] src2;
 
     reg [15:0] regs [0:7];
-    assign regs[7] = 65535;
     reg [15:0] src1val;
     reg [15:0] src2val;
 

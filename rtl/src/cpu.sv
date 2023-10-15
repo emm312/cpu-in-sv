@@ -56,7 +56,7 @@ module cpu(
         state = ReadingOpWord;
     end
 
-    always_ff @(posedge (clk & clk_en)) begin
+    always_ff @(posedge clk) begin
         case (state)
             ReadingOpWord: begin
                 opcode <= word[4:0];

@@ -5,7 +5,6 @@ module rom (
     wire [7:0] rom [0:65535];
     reg [7:0] data_inner;
     initial begin
-        $display("Initializing ROM");
         $readmemh("image.mem", rom);
     end
 

@@ -50,12 +50,10 @@ module cpu(
         .clk(clk)
     );
 
+    reg halted;
+    wire ps_clk = halted & clk;
 
-    initial begin
-        state = ReadingOpWord;
-    end
-
-    always_ff @(posedge clk) begin
+    always_ff @(posedge ps_clk) begin
         case (state)
             ReadingOpWord: begin
                 opcode <= word[4:0];
@@ -107,7 +105,7 @@ module cpu(
                 end
                 
                 case (opcode)
-                    5'b11111: $finish;
+                    5'b11111: halted <= 1;
                     5'b01000: begin
                         gr_flag <= src1val > src2val;
                         eq_flag <= src1val == src2val;
@@ -141,20 +139,20 @@ module cpu(
                         pc <= src1val;
                     end // jmp
                     5'b10000: begin // cal
-                        assign ram[regs[7]] = pc;
+                        ram[regs[7]] <= pc;
                         regs[7] <= regs[7] - 1;
                         pc <= src1val;
                     end
                     5'b10001: begin // ret
-                        assign regs[7] = regs[7] + 1;
+                        regs[7] <= regs[7] + 1;
                         pc <= ram[regs[7]];
                     end
                     5'b10010: begin // psh
-                        assign ram[regs[7]] = src1val;
+                        ram[regs[7]] <= src1val;
                         regs[7] <= regs[7] - 1;
                     end
                     5'b10011: begin // pop
-                        assign regs[7] = regs[7] + 1;
+                        regs[7] <= regs[7] + 1;
                         regs[dst] <= ram[regs[7]];
                     end
                     5'b10100: begin // lod
@@ -194,7 +192,7 @@ module cpu(
                         
                         end else begin
                             $display("ILLEGAL INSTRUCTION: %b", opcode);
-                            $finish;
+                            halted <= 1;
                         end
                     end
                 endcase
@@ -207,7 +205,12 @@ module cpu(
         if (sync_rst) begin
             state <= ReadingOpWord;
             pc <= 0;
-            regs <= {0, 0, 0, 0, 0, 0, 0, 0};
+            regs[1] <= 0;
+            regs[2] <= 0;
+            regs[3] <= 0;
+            regs[4] <= 0;
+            regs[5] <= 0;
+            regs[6] <= 0;
             regs[7] <= 65535;
             gr_flag <= 0;
             eq_flag <= 0;

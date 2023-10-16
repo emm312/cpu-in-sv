@@ -2,11 +2,8 @@ module rom (
     input [15:0] read_pos,
     output [7:0] data
 );
-    wire [7:0] rom [0:65535];
     reg [7:0] data_inner;
-    initial begin
-        $readmemh("image.mem", rom);
-    end
+    `include "../../image.mem"
 
-    assign data = rom[read_pos];
+    assign data = data_inner;
 endmodule

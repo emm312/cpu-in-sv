@@ -50,7 +50,8 @@ module cpu(
     );
 
     reg halted;
-    wire ps_clk = halted & clk;
+    assign halted = 0;
+    wire ps_clk = ~halted & clk;
 
     always_ff @(posedge ps_clk) begin
         case (state)
@@ -215,6 +216,7 @@ module cpu(
             eq_flag <= 0;
             gte_flag <= 0;
             write_io <= 0;
+            halted <= 0;
         end
     end
 endmodule

@@ -6,6 +6,9 @@ module io(
     input clk
 );
     always_ff @(posedge clk) begin
-        // TOOO
+        case (addr)
+				// 0: LED <= data[7:0];
+				default: ;
+		  endcase
     end
 endmodule

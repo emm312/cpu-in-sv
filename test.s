@@ -1,6 +1,7 @@
 mov r1, 9
 .collatz // r1 = cur_num
          // r2 = is_even
+	 pst 0, r1
     cmp r1, 1
     jeq .halt
     and r2, r1, 1

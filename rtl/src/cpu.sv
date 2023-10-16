@@ -6,10 +6,18 @@ typedef enum {
     ExecutingInstr
 } State;
 
-module cpu(
+module risccpu(
     input clk,
-    input sync_rst
+    input sync_rst,
+	 output reg [7:0] led
 );
+	wire out_clk = clk;
+	 pll pll(
+		.areset(sync_rst),
+		.inclk0(clk),
+		//.c0(out_clk)
+	);
+	
     State state;
     wire [7:0] word;
     reg [4:0] opcode;
@@ -26,7 +34,7 @@ module cpu(
     reg [15:0] src1val;
     reg [15:0] src2val;
 
-    reg [15:0] ram [0:65535];
+    reg [15:0] ram [0:32];
 
     rom therom(
         .read_pos(pc),
@@ -46,12 +54,11 @@ module cpu(
         .data(io_data),
         .data_out(io_data_out),
         .write(write_io),
-        .clk(clk)
+        .clk(ps_clk)
     );
 
     reg halted;
-    assign halted = 0;
-    wire ps_clk = ~halted & clk;
+    wire ps_clk = ~halted & out_clk;
 
     always_ff @(posedge ps_clk) begin
         case (state)
@@ -168,9 +175,10 @@ module cpu(
                         regs[dst] <= regs[dst] << 1;
                     end
                     5'b11000: begin // pst
-                        io_addr <= regs[dst];
-                        io_data <= regs[src1];
+                        io_addr <= src1val;
+                        io_data <= src2val;
                         write_io <= 1;
+								led <= src2val;
                     end
                     5'b11001: begin // pld
                         io_addr <= src1val;
@@ -217,6 +225,7 @@ module cpu(
             gte_flag <= 0;
             write_io <= 0;
             halted <= 0;
-        end
-    end
+				led <= 0;
+        end 
+	end
 endmodule

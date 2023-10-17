@@ -1,0 +1,16 @@
+Fitter Status : Successful - Tue Oct 17 19:20:48 2023
+Quartus Prime Version : 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+Revision Name : risccpu
+Top-level Entity Name : risccpu
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 2,481 / 22,320 ( 11 % )
+    Total combinational functions : 1,976 / 22,320 ( 9 % )
+    Dedicated logic registers : 1,272 / 22,320 ( 6 % )
+Total registers : 1272
+Total pins : 16 / 154 ( 10 % )
+Total virtual pins : 0
+Total memory bits : 2,048 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 2 / 132 ( 2 % )
+Total PLLs : 0 / 4 ( 0 % )

@@ -9,14 +9,11 @@ typedef enum {
 module risccpu(
     input clk,
     input sync_rst,
-	 output reg [7:0] led
+	 output reg [7:0] led,
+	 input [3:0] SWITCHES,
+	 input PSWITCH
 );
 	wire out_clk = clk;
-	 pll pll(
-		.areset(sync_rst),
-		.inclk0(clk),
-		//.c0(out_clk)
-	);
 	
     State state;
     wire [7:0] word;
@@ -175,27 +172,25 @@ module risccpu(
                         regs[dst] <= regs[dst] << 1;
                     end
                     5'b11000: begin // pst
-                        io_addr <= src1val;
-                        io_data <= src2val;
-                        write_io <= 1;
-								led <= src2val;
+								led <= regs[1];
                     end
                     5'b11001: begin // pld
-                        io_addr <= src1val;
-                        write_io <= 0;
-                        regs[dst] <= io_data_out;
-                    end
+                        case (src1val) 
+									0: regs[dst] <= PSWITCH;
+									1: regs[dst] <= SWITCHES;
+								endcase
+							end
                     default: begin
                         if ((opcode & 5'b00111) == opcode) begin
                                 case (opcode[2:0])
-                                    3'b000: regs[dst] = src1val;
-                                    3'b001: regs[dst] = src1val + src2val;
-                                    3'b010: regs[dst] = src1val - src2val;
-                                    3'b011: regs[dst] = src1val * src2val;
-                                    3'b100: regs[dst] = src1val & src2val;
-                                    3'b101: regs[dst] = src1val | src2val;
-                                    3'b110: regs[dst] = src1val ^ src2val;
-                                    3'b111: regs[dst] = ~src1val;
+                                    3'b000: regs[dst] <= src1val;
+                                    3'b001: regs[dst] <= src1val + src2val;
+                                    3'b010: regs[dst] <= src1val - src2val;
+                                    3'b011: regs[dst] <= src1val * src2val;
+                                    3'b100: regs[dst] <= src1val & src2val;
+                                    3'b101: regs[dst] <= src1val | src2val;
+                                    3'b110: regs[dst] <= src1val ^ src2val;
+                                    3'b111: regs[dst] <= ~src1val;
                                 endcase
                         
                         end else begin
@@ -210,7 +205,7 @@ module risccpu(
         if (state != ExecutingInstr) begin
             pc <= pc + 1;
         end
-        if (sync_rst) begin
+        if (~sync_rst) begin
             state <= ReadingOpWord;
             pc <= 0;
             regs[1] <= 0;

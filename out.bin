@@ -1,0 +1,9 @@
+always_comb begin
+case(read_pos)
+0: data_inner = 8'h18;
+1: data_inner = 8'hc0;
+2: data_inner = 8'h00;
+3: data_inner = 8'hff;
+default: data_inner = 8'h00;
+endcase
+end

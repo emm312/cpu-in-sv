@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at cpu.sv(60): always construct contains both blocking and non-blocking assignments File: /home/emm312/Desktop/coding/systemverilog/cpu-in-sv/rtl/src/cpu.sv Line: 60

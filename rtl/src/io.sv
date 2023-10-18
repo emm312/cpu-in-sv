@@ -1,6 +1,7 @@
 module io(
     input [15:0] addr,
     input [15:0] data,
+	input sync_rst,
     input write,
     output reg [15:0] data_out,
     input clk,
@@ -25,5 +26,8 @@ module io(
 					end
 				end
 			endcase
+			if (~sync_rst) begin
+				LED <= 8'b0;
+			end
 		end
 endmodule

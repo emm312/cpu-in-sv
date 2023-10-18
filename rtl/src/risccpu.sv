@@ -47,11 +47,13 @@ module risccpu(
     reg [15:0] io_data;
     reg [15:0] io_data_out;
     io theio(
+        .sync_rst(sync_rst),
+        .clk(ps_clk),
+        
         .addr(io_addr),
         .data(io_data),
         .data_out(io_data_out),
         .write(write_io),
-        .clk(ps_clk),
         .LED(led),
         .button_1(PSWITCH),
         .switches(SWITCHES)
@@ -223,7 +225,7 @@ module risccpu(
             gte_flag <= 0;
             write_io <= 0;
             halted <= 0;
-				led <= 0;
+			led <= 0;
         end 
 	end
 endmodule

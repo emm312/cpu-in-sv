@@ -9,12 +9,12 @@ typedef enum {
 module risccpu(
     input clk,
     input sync_rst,
-	 output reg [7:0] led,
+	 output [7:0] led_outer,
 	 input [3:0] SWITCHES,
 	 input PSWITCH
 );
 	wire out_clk = clk;
-	
+	reg [7:0] led;
     State state;
     wire [7:0] word;
     reg [4:0] opcode;
@@ -194,7 +194,7 @@ module risccpu(
                                 endcase
                         
                         end else begin
-                            $display("ILLEGAL INSTRUCTION: %b", opcode);
+                            // $display("ILLEGAL INSTRUCTION: %b", opcode);
                             halted <= 1;
                         end
                     end
@@ -222,5 +222,6 @@ module risccpu(
             halted <= 0;
 				led <= 0;
         end 
+		  led_outer <= led;
 	end
 endmodule

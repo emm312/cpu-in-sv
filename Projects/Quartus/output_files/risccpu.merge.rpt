@@ -1,5 +1,5 @@
 Partition Merge report for risccpu
-Tue Oct 17 19:20:39 2023
+Tue Oct 17 21:33:52 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -42,13 +42,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Partition Merge Summary                                                             ;
 +------------------------------------+------------------------------------------------+
-; Partition Merge Status             ; Successful - Tue Oct 17 19:20:39 2023          ;
+; Partition Merge Status             ; Successful - Tue Oct 17 21:33:52 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; risccpu                                        ;
 ; Top-level Entity Name              ; risccpu                                        ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 2,858                                          ;
-;     Total combinational functions  ; 1,974                                          ;
+; Total logic elements               ; 2,799                                          ;
+;     Total combinational functions  ; 1,907                                          ;
 ;     Dedicated logic registers      ; 1,272                                          ;
 ; Total registers                    ; 1272                                           ;
 ; Total pins                         ; 16                                             ;
@@ -149,16 +149,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+------+------------------+--------------------------------+--------------------------------+
 ; Statistic                                   ; Top  ; sld_hub:auto_hub ; sld_signaltap:auto_signaltap_0 ; hard_block:auto_generated_inst ;
 +---------------------------------------------+------+------------------+--------------------------------+--------------------------------+
-; Estimated Total logic elements              ; 2116 ; 152              ; 590                            ; 0                              ;
+; Estimated Total logic elements              ; 2057 ; 152              ; 590                            ; 0                              ;
 ;                                             ;      ;                  ;                                ;                                ;
-; Total combinational functions               ; 1507 ; 126              ; 341                            ; 0                              ;
+; Total combinational functions               ; 1440 ; 126              ; 341                            ; 0                              ;
 ; Logic element usage by number of LUT inputs ;      ;                  ;                                ;                                ;
-;     -- 4 input functions                    ; 1145 ; 52               ; 150                            ; 0                              ;
+;     -- 4 input functions                    ; 1105 ; 52               ; 150                            ; 0                              ;
 ;     -- 3 input functions                    ; 240  ; 38               ; 98                             ; 0                              ;
-;     -- <=2 input functions                  ; 122  ; 36               ; 93                             ; 0                              ;
+;     -- <=2 input functions                  ; 95   ; 36               ; 93                             ; 0                              ;
 ;                                             ;      ;                  ;                                ;                                ;
 ; Logic elements by mode                      ;      ;                  ;                                ;                                ;
-;     -- normal mode                          ; 1402 ; 118              ; 277                            ; 0                              ;
+;     -- normal mode                          ; 1335 ; 118              ; 277                            ; 0                              ;
 ;     -- arithmetic mode                      ; 105  ; 8                ; 64                             ; 0                              ;
 ;                                             ;      ;                  ;                                ;                                ;
 ; Total registers                             ; 719  ; 90               ; 463                            ; 0                              ;
@@ -179,8 +179,8 @@ https://fpgasoftware.intel.com/eula.
 ;     -- Registered Output Connections        ; 32   ; 163              ; 0                              ; 0                              ;
 ;                                             ;      ;                  ;                                ;                                ;
 ; Internal Connections                        ;      ;                  ;                                ;                                ;
-;     -- Total Connections                    ; 8504 ; 845              ; 2857                           ; 0                              ;
-;     -- Registered Connections               ; 2319 ; 618              ; 1737                           ; 0                              ;
+;     -- Total Connections                    ; 8282 ; 845              ; 2857                           ; 0                              ;
+;     -- Registered Connections               ; 2228 ; 618              ; 1737                           ; 0                              ;
 ;                                             ;      ;                  ;                                ;                                ;
 ; External Connections                        ;      ;                  ;                                ;                                ;
 ;     -- Top                                  ; 0    ; 122              ; 533                            ; 0                              ;
@@ -260,37 +260,37 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 ;     -- clk                                    ; Top                            ; Input Pad     ; Unplaced ; Synthesized ;
 ;     -- clk~input                              ; Top                            ; Input Buffer  ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[0]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[0]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[0]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[0]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[0]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[0]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[1]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[1]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[1]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[1]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[1]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[1]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[2]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[2]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[2]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[2]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[2]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[2]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[3]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[3]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[3]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[3]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[3]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[3]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[4]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[4]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[4]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[4]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[4]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[4]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[5]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[5]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[5]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[5]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[5]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[5]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[6]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[6]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[6]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[6]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[6]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[6]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
-; led[7]                                        ; Top                            ; Output Port   ; n/a      ;             ;
-;     -- led[7]                                 ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
-;     -- led[7]~output                          ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
+; led_outer[7]                                  ; Top                            ; Output Port   ; n/a      ;             ;
+;     -- led_outer[7]                           ; Top                            ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led_outer[7]~output                    ; Top                            ; Output Buffer ; Unplaced ; Synthesized ;
 ;                                               ;                                ;               ;          ;             ;
 ; sync_rst                                      ; Top                            ; Input Port    ; n/a      ;             ;
 ;     -- sync_rst                               ; Top                            ; Input Pad     ; Unplaced ; Synthesized ;
@@ -304,16 +304,16 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 +---------------------------------------------+--------+
 ; Resource                                    ; Usage  ;
 +---------------------------------------------+--------+
-; Estimated Total logic elements              ; 2,858  ;
+; Estimated Total logic elements              ; 2,799  ;
 ;                                             ;        ;
-; Total combinational functions               ; 1974   ;
+; Total combinational functions               ; 1907   ;
 ; Logic element usage by number of LUT inputs ;        ;
-;     -- 4 input functions                    ; 1347   ;
+;     -- 4 input functions                    ; 1307   ;
 ;     -- 3 input functions                    ; 376    ;
-;     -- <=2 input functions                  ; 251    ;
+;     -- <=2 input functions                  ; 224    ;
 ;                                             ;        ;
 ; Logic elements by mode                      ;        ;
-;     -- normal mode                          ; 1797   ;
+;     -- normal mode                          ; 1730   ;
 ;     -- arithmetic mode                      ; 177    ;
 ;                                             ;        ;
 ; Total registers                             ; 1272   ;
@@ -327,7 +327,7 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 ;                                             ;        ;
 ; Maximum fan-out node                        ; ps_clk ;
 ; Maximum fan-out                             ; 719    ;
-; Total fan-out                               ; 11327  ;
+; Total fan-out                               ; 11105  ;
 ; Average fan-out                             ; 3.43   ;
 +---------------------------------------------+--------+
 
@@ -365,7 +365,7 @@ Note: number of Embedded Multiplier Blocks used is only available after a succes
 Info: *******************************************************************
 Info: Running Quartus Prime Partition Merge
     Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
-    Info: Processing started: Tue Oct 17 19:20:38 2023
+    Info: Processing started: Tue Oct 17 21:33:51 2023
 Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off risccpu -c risccpu --merge=on
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (35007): Using synthesis netlist for partition "Top"
@@ -376,15 +376,15 @@ Info (35002): Resolved and merged 3 partition(s)
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Critical Warning (138067): Current license file does not support incremental compilation. The Quartus Prime software removes all the user-specified design partitions in the design automatically.
-Info (21057): Implemented 2948 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2889 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 11 input pins
     Info (21059): Implemented 9 output pins
-    Info (21061): Implemented 2909 logic cells
+    Info (21061): Implemented 2850 logic cells
     Info (21064): Implemented 16 RAM segments
     Info (21062): Implemented 2 DSP elements
 Info: Quartus Prime Partition Merge was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 829 megabytes
-    Info: Processing ended: Tue Oct 17 19:20:39 2023
+    Info: Peak virtual memory: 823 megabytes
+    Info: Processing ended: Tue Oct 17 21:33:52 2023
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

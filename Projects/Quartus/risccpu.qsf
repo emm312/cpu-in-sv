@@ -63,17 +63,10 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_R8 -to clk
 set_location_assignment PIN_J15 -to sync_rst
-set_global_assignment -name SOURCE_FILE ../../image.mem
-set_global_assignment -name SOURCE_FILE ../../test.s
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/rom.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/cpu.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/io.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
-set_global_assignment -name QIP_FILE pll.qip
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sync_rst
-set_global_assignment -name SYSTEMVERILOG_FILE sadsa.sv
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SWITCHES
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SWITCHES[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SWITCHES[2]
@@ -179,22 +172,22 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
-set_location_assignment PIN_L3 -to led_outer[7]
-set_location_assignment PIN_B1 -to led_outer[6]
-set_location_assignment PIN_F3 -to led_outer[5]
-set_location_assignment PIN_D1 -to led_outer[4]
-set_location_assignment PIN_A15 -to led_outer[0]
-set_location_assignment PIN_A13 -to led_outer[1]
-set_location_assignment PIN_B13 -to led_outer[2]
-set_location_assignment PIN_A11 -to led_outer[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_outer[0]
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/risccpu.sv
+set_global_assignment -name SOURCE_FILE ../../image.mem
+set_global_assignment -name SOURCE_FILE ../../test.s
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/rom.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../rtl/src/io.sv
+set_global_assignment -name QIP_FILE pll.qip
+set_global_assignment -name SYSTEMVERILOG_FILE sadsa.sv
+set_global_assignment -name SOURCE_FILE db/risccpu.cmp.rdb
+set_location_assignment PIN_B6 -to led[7]
+set_location_assignment PIN_E7 -to led[6]
+set_location_assignment PIN_A6 -to led[5]
+set_location_assignment PIN_A5 -to led[4]
+set_location_assignment PIN_B5 -to led[3]
+set_location_assignment PIN_A4 -to led[0]
+set_location_assignment PIN_E6 -to led[1]
+set_location_assignment PIN_C6 -to led[2]
 set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

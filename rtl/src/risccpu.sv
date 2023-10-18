@@ -6,10 +6,15 @@ typedef enum {
     ExecutingInstr
 } State;
 
-module cpu(
+module risccpu(
     input clk,
-    input sync_rst
+    input sync_rst,
+	output reg [7:0] led,
+	input [3:0] SWITCHES,
+	input PSWITCH
 );
+	wire out_clk = clk;
+	
     State state;
     wire [7:0] word;
     reg [4:0] opcode;
@@ -23,11 +28,10 @@ module cpu(
     reg [2:0] src2;
 
     reg [15:0] regs [0:7];
-    assign regs[7] = 65535;
     reg [15:0] src1val;
     reg [15:0] src2val;
 
-    reg [15:0] ram [0:65535];
+    reg [15:0] ram [0:32];
 
     rom therom(
         .read_pos(pc),
@@ -47,15 +51,16 @@ module cpu(
         .data(io_data),
         .data_out(io_data_out),
         .write(write_io),
-        .clk(clk)
+        .clk(ps_clk),
+        .LED(led),
+        .button_1(PSWITCH),
+        .switches(SWITCHES)
     );
 
+    reg halted;
+    wire ps_clk = ~halted & out_clk;
 
-    initial begin
-        state = ReadingOpWord;
-    end
-
-    always_ff @(posedge clk) begin
+    always_ff @(posedge ps_clk) begin
         case (state)
             ReadingOpWord: begin
                 opcode <= word[4:0];
@@ -107,7 +112,7 @@ module cpu(
                 end
                 
                 case (opcode)
-                    5'b11111: $finish;
+                    5'b11111: halted <= 1;
                     5'b01000: begin
                         gr_flag <= src1val > src2val;
                         eq_flag <= src1val == src2val;
@@ -141,27 +146,27 @@ module cpu(
                         pc <= src1val;
                     end // jmp
                     5'b10000: begin // cal
-                        assign ram[regs[7]] = pc;
+                        ram[regs[7][5:0]] <= pc;
                         regs[7] <= regs[7] - 1;
                         pc <= src1val;
                     end
                     5'b10001: begin // ret
-                        assign regs[7] = regs[7] + 1;
-                        pc <= ram[regs[7]];
+                        regs[7] <= regs[7] + 1;
+                        pc <= ram[regs[7][5:0]];
                     end
                     5'b10010: begin // psh
-                        assign ram[regs[7]] = src1val;
+                        ram[regs[7][5:0]] <= src1val;
                         regs[7] <= regs[7] - 1;
                     end
                     5'b10011: begin // pop
-                        assign regs[7] = regs[7] + 1;
-                        regs[dst] <= ram[regs[7]];
+                        regs[7] <= regs[7] + 1;
+                        regs[dst] <= ram[regs[7][5:0]];
                     end
                     5'b10100: begin // lod
-                        regs[dst] <= ram[src1val];
+                        regs[dst] <= ram[src1val[5:0]];
                     end
                     5'b10101: begin // str
-                        ram[src1val] <= src2val;
+                        ram[src1val[5:0]] <= src2val;
                     end
                     5'b10110: begin // rsh
                         regs[dst] <= regs[dst] >> 1;
@@ -170,31 +175,30 @@ module cpu(
                         regs[dst] <= regs[dst] << 1;
                     end
                     5'b11000: begin // pst
-                        io_addr <= regs[dst];
-                        io_data <= regs[src1];
+                        io_addr <= src1val;
+                        io_data <= src2val;
                         write_io <= 1;
                     end
                     5'b11001: begin // pld
                         io_addr <= src1val;
                         write_io <= 0;
-                        regs[dst] <= io_data_out;
                     end
                     default: begin
                         if ((opcode & 5'b00111) == opcode) begin
                                 case (opcode[2:0])
-                                    3'b000: regs[dst] = src1val;
-                                    3'b001: regs[dst] = src1val + src2val;
-                                    3'b010: regs[dst] = src1val - src2val;
-                                    3'b011: regs[dst] = src1val * src2val;
-                                    3'b100: regs[dst] = src1val & src2val;
-                                    3'b101: regs[dst] = src1val | src2val;
-                                    3'b110: regs[dst] = src1val ^ src2val;
-                                    3'b111: regs[dst] = ~src1val;
+                                    3'b000: regs[dst] <= src1val;
+                                    3'b001: regs[dst] <= src1val + src2val;
+                                    3'b010: regs[dst] <= src1val - src2val;
+                                    3'b011: regs[dst] <= src1val * src2val;
+                                    3'b100: regs[dst] <= src1val & src2val;
+                                    3'b101: regs[dst] <= src1val | src2val;
+                                    3'b110: regs[dst] <= src1val ^ src2val;
+                                    3'b111: regs[dst] <= ~src1val;
                                 endcase
                         
                         end else begin
                             $display("ILLEGAL INSTRUCTION: %b", opcode);
-                            $finish;
+                            halted <= 1;
                         end
                     end
                 endcase
@@ -204,15 +208,22 @@ module cpu(
         if (state != ExecutingInstr) begin
             pc <= pc + 1;
         end
-        if (sync_rst) begin
+        if (~sync_rst) begin
             state <= ReadingOpWord;
             pc <= 0;
-            regs <= {0, 0, 0, 0, 0, 0, 0, 0};
+            regs[1] <= 0;
+            regs[2] <= 0;
+            regs[3] <= 0;
+            regs[4] <= 0;
+            regs[5] <= 0;
+            regs[6] <= 0;
             regs[7] <= 65535;
             gr_flag <= 0;
             eq_flag <= 0;
             gte_flag <= 0;
             write_io <= 0;
-        end
-    end
+            halted <= 0;
+				led <= 0;
+        end 
+	end
 endmodule

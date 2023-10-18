@@ -17,14 +17,14 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition"
 
-// DATE "10/18/2023 18:13:25"
+// DATE "10/18/2023 19:30:42"
 
 // 
 // Device: Altera EP4CE22F17C6 Package FBGA256
 // 
 
 // 
-// This Verilog file should be used for Questa Intel FPGA (SystemVerilog) only
+// This Verilog file should be used for Questa Intel FPGA (Verilog) only
 // 
 
 `timescale 1 ps/ 1 ps
@@ -45,11 +45,11 @@ input 	altera_reserved_tck;
 input 	altera_reserved_tdi;
 output 	altera_reserved_tdo;
 input 	auto_stp_external_clock_0;
-input 	reg clk ;
-input 	reg sync_rst ;
-output 	logic [7:0] led_outer ;
-input 	logic [3:0] SWITCHES ;
-input 	reg PSWITCH ;
+input 	clk;
+input 	sync_rst;
+output 	[7:0] led_outer;
+input 	[3:0] SWITCHES;
+input 	PSWITCH;
 
 // Design Ports Information
 // led_outer[0]	=>  Location: PIN_A15,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA

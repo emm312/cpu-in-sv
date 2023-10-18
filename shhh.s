@@ -17,4 +17,5 @@ or r3, r3, 255
     jmp .lbl
 .add
     add r1, r1, 1
+    pst 0, r1
     jmp .lbl

@@ -6,7 +6,7 @@ typedef enum {
     ExecutingInstr
 } State;
 
-module risccpu(
+module cpu(
     input clk,
     input sync_rst,
 	output reg [7:0] led,
@@ -46,6 +46,7 @@ module risccpu(
     reg [15:0] io_addr;
     reg [15:0] io_data;
     reg [15:0] io_data_out;
+	 wire [7:0] fake_led;
     io theio(
         .sync_rst(sync_rst),
         .clk(ps_clk),
@@ -54,7 +55,7 @@ module risccpu(
         .data(io_data),
         .data_out(io_data_out),
         .write(write_io),
-        .LED(led),
+        .LED(fake_led),
         .button_1(PSWITCH),
         .switches(SWITCHES)
     );
@@ -114,7 +115,7 @@ module risccpu(
                 end
                 
                 case (opcode)
-                    5'b11111: halted <= 1;
+                    5'b11111: begin halted <= 1; led <= 170; end
                     5'b01000: begin
                         gr_flag <= src1val > src2val;
                         eq_flag <= src1val == src2val;
@@ -180,10 +181,16 @@ module risccpu(
                         io_addr <= src1val;
                         io_data <= src2val;
                         write_io <= 1;
+								led <= src2val;
                     end
                     5'b11001: begin // pld
                         io_addr <= src1val;
                         write_io <= 0;
+								regs[dst] <= io_data_out;
+								case (src1val)
+									0: begin regs[dst] <= PSWITCH; end
+									1: begin regs[dst] <= SWITCHES; end
+								endcase
                     end
                     default: begin
                         if ((opcode & 5'b00111) == opcode) begin
@@ -199,7 +206,7 @@ module risccpu(
                                 endcase
                         
                         end else begin
-                            $display("ILLEGAL INSTRUCTION: %b", opcode);
+                            //$display("ILLEGAL INSTRUCTION: %b", opcode);
                             halted <= 1;
                         end
                     end
@@ -210,7 +217,7 @@ module risccpu(
         if (state != ExecutingInstr) begin
             pc <= pc + 1;
         end
-        if (~sync_rst) begin
+        if (sync_rst) begin
             state <= ReadingOpWord;
             pc <= 0;
             regs[1] <= 0;
@@ -219,12 +226,13 @@ module risccpu(
             regs[4] <= 0;
             regs[5] <= 0;
             regs[6] <= 0;
-            regs[7] <= 65535;
+            regs[7] <= 31;
             gr_flag <= 0;
             eq_flag <= 0;
             gte_flag <= 0;
             write_io <= 0;
             halted <= 0;
+				led <= 0;
         end 
 	end
 endmodule

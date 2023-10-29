@@ -1,5 +1,0 @@
-module risccpu(
-    input clk,
-    input sync_rst,
-	 output reg [7:0] led
-);

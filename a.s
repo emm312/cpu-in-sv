@@ -4,3 +4,4 @@ hlt
 .l
 pst 0, 171
 ret
+hlt

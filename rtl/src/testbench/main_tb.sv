@@ -4,7 +4,7 @@ module main_tb (
     input sync_rst
 );
     wire clk_n = clk & clk_en;
-    risccpu risccpu(
+    cpu risccpu(
         .clk(clk_n),
         .sync_rst(sync_rst)
     );

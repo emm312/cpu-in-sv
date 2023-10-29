@@ -11,7 +11,7 @@
 	 jmp .main
 
 .collatz_init
-    mov r1, 5
+    mov r1, 17
 .collatz // r1 = cur_num
          // r2 = is_even
     cal .button
